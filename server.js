@@ -48,7 +48,7 @@ app.get('api/users/:id',(req,res,next) => {
   }
 })
 //Routes for departments
-app.get('api/departments',(req,res,next) => {
+app.get('/api/departments',(req,res,next) => {
   res.send('404 no more!')
 })
 
