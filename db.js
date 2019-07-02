@@ -8,7 +8,15 @@ const Users = db.define('user',{
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true
   },
-  name: Sequelize.STRING,
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    notEmpty: true
+  },
+  departmnetId: {
+    type: Sequelize.INTEGER
+  }
 })
 const Departments = db.define('department', {
   id: {
@@ -16,7 +24,12 @@ const Departments = db.define('department', {
     defaultValue: Sequelize.UUIDV4,
     primaryKey:true
   },
-  name: Sequelize.STRING,
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    notEmpty: true
+  },
 })
 
 syncAndSeed = async() => {
