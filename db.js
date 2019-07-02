@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const dbName = 'acme-departments'
 const db = new Sequelize(process.env.DATABASE_URL || `postgres://localhost/${dbName}`)
 
+//Models
 const Users = db.define('user',{
   id: {
     type: Sequelize.UUID,
@@ -13,9 +14,6 @@ const Users = db.define('user',{
     allowNull: false,
     unique: true,
     notEmpty: true
-  },
-  departmnetId: {
-    type: Sequelize.INTEGER
   }
 })
 const Departments = db.define('department', {
@@ -32,6 +30,10 @@ const Departments = db.define('department', {
   },
 })
 
+//Associations
+Users.belongsTo(Departments)
+
+//Data seeding
 syncAndSeed = async() => {
   await db.sync({force:true})
   await userSeed.map((user) => {
@@ -41,9 +43,6 @@ syncAndSeed = async() => {
     Departments.create(dep)
   })
 }
-
-//syncAndSeed()
-
 //Seed Data
 const userSeed = [
   {name: 'Goerge'},

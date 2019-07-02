@@ -48,8 +48,18 @@ app.get('api/users/:id',(req,res,next) => {
   }
 })
 //Routes for departments
-app.get('/api/departments',(req,res,next) => {
-  res.send('404 no more!')
+app.get('/api/departments',async(req,res,next) => {
+  try{
+    const allDepartments = await models.Departments.findAll()
+    if(!allDepartments){
+      throw('Error')
+    }
+    res.send(allDepartments)
+  }
+  catch(ex){
+    res.send('Error')
+    next()
+  }
 })
 
 
