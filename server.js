@@ -18,7 +18,7 @@ app.get('/',(req,res,next) => {
   res.send('Home')
 })
 //Routes for users
-app.get('/api/users/',async (req,res,next) => {
+app.get('/api/users',async (req,res,next) => {
   try{
     const allUsers = await models.Users.findAll()
     if(!allUsers) {
@@ -31,10 +31,20 @@ app.get('/api/users/',async (req,res,next) => {
     next()
   }
 });
+app.post('/api/users',async(req,res,next) => {
+  try{
+    const newUser = await models.Users.create(req.body)
+    res.send(newUser)
+  }
+  catch(ex){
+    res.send('Error')
+    next()
+  }
+});
 app.get('api/users/:id',(req,res,next) => {
   try{
     const queryId = req.params.id;
-    foundUser = models.Users.findByPk(queryId)
+    foundUser = await models.Users.findByPk(queryId)
     if(!foundUser){
       throw('User not found')
     }
@@ -45,6 +55,7 @@ app.get('api/users/:id',(req,res,next) => {
     next()
   }
 })
+
 //Routes for departments
 app.get('/api/departments',async(req,res,next) => {
   try{
@@ -59,6 +70,29 @@ app.get('/api/departments',async(req,res,next) => {
     next()
   }
 })
-
+app.post('/api/departments',async(req,res,next) => {
+  try{
+    const newDepartment = await models.Departments.create(req.body)
+    res.send(newDepartment)
+  }
+  catch(ex){
+    res.send('Error')
+    next()
+  }
+})
+app.get('/api/departments/:id',async(req,res,next) => {
+  try{
+    const queryId = req.params.id;
+    const foundDepartment = await models.Departments.findByPk(queryId)
+    if(!foundDepartment){
+      throw('Error')
+    }
+    res.send(foundDepartment)
+  }
+  catch(ex){
+    res.send('Error')
+    next()
+  }
+})
 
 app.listen(PORT)

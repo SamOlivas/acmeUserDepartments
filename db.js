@@ -57,6 +57,7 @@ const departmentSeed = [
   {name: 'Shenanigans'}
 ]
 
+//Exports
 module.exports = {
   models: {
     Users,
