@@ -17,6 +17,7 @@ app.use(cors());
 app.get('/',(req,res,next) => {
   res.send('Home')
 })
+//Routes for users
 app.get('/api/users/',async (req,res,next) => {
   try{
     const allUsers = await models.Users.findAll()
@@ -45,6 +46,10 @@ app.get('api/users/:id',(req,res,next) => {
     res.send('User not found');
     next()
   }
+})
+//Routes for departments
+app.get('api/departments',(req,res,next) => {
+  res.send('404 no more!')
 })
 
 
