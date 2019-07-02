@@ -34,9 +34,7 @@ app.get('/api/users/',async (req,res,next) => {
 app.get('api/users/:id',(req,res,next) => {
   try{
     const queryId = req.params.id;
-    foundUser = models.Users.findOne({
-      where: {id: queryId}
-    })
+    foundUser = models.Users.findByPk(queryId)
     if(!foundUser){
       throw('User not found')
     }
